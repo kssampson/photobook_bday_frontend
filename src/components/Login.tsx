@@ -1,6 +1,7 @@
 import { validateInputs } from "../utils/validateInputs";
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Spinner } from "@chakra-ui/react"
 import login from "../utils/login";
+import { redirect } from "react-router-dom";
 
 type Props = {
   visitorId: string | null;
@@ -49,6 +50,9 @@ const Login = ( { visitorId, setIsLoggedIn, username, setUsername, password, set
         setPasswordSubmitted(true);
         const response = (await login(username, password, visitorId)).data;
         if (response.success) {
+          const token = response.data.token;
+          const id = response.data.id;
+          localStorage.setItem("token", token);
           resetUsernamePasswordStates();
           setIsLoggedIn(true);
           toast({
@@ -60,6 +64,7 @@ const Login = ( { visitorId, setIsLoggedIn, username, setUsername, password, set
             isClosable: true,
           });
           resetUsernamePasswordStates();
+          redirect('/temp')
         } else if (!response.success) {
           //check for invalid email
           if (response.invalidUsername || response.invalidPassword || response.noVisitorRecord) {
