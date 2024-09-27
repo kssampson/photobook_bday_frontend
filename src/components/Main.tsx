@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-const LoginSuccessful = () => {
+const Main = () => {
   return (
     <Box>
       <Heading as={'h1'}>Fingerprint & 2FA Successfull</Heading>
@@ -8,4 +8,4 @@ const LoginSuccessful = () => {
   );
 };
 
-export default LoginSuccessful;
+export default Main;
