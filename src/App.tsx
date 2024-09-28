@@ -17,6 +17,7 @@ function App() {
       <Box position="relative" width="100vw" height="100vh" overflow="hidden">
         {/* Background Image */}
         <Image
+          opacity={"0.8"}
           src={backgroundImage}
           alt="Background"
           position="absolute"

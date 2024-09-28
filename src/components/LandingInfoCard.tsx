@@ -1,5 +1,6 @@
 import { Card, CardBody, Heading, Stack, Text, Image, Divider, ButtonGroup, CardFooter, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   danielleImage: string;
@@ -7,12 +8,14 @@ type Props = {
 }
 
 const LandingInfoCard = ( { danielleImage, setDanielleImage }: Props ) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const dImage = "https://static.wixstatic.com/media/91342f_24f8d2cf3b4f42a0a0aeb0a4b6bbbece~mv2.jpg/v1/fit/w_2500,h_1330,al_c/91342f_24f8d2cf3b4f42a0a0aeb0a4b6bbbece~mv2.jpg"
     setDanielleImage(dImage);
   })
   return (
-    <Card maxW='sm'>
+    <Card maxW='xl'>
   <CardBody>
     <Image
       src={danielleImage}
@@ -35,7 +38,7 @@ const LandingInfoCard = ( { danielleImage, setDanielleImage }: Props ) => {
   <Divider />
   <CardFooter>
     <ButtonGroup spacing='2'>
-      <Button variant='solid' colorScheme='blue'>
+      <Button variant='solid' colorScheme='blue' onClick={() => navigate("/temp")}>
         Let's do it!
       </Button>
       <Button variant='ghost' colorScheme='blue'>

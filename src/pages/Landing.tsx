@@ -8,9 +8,9 @@ const Landing = () => {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const [danielleImage, setDanielleImage] = useState<string>('');
 
-  const goHome = () => {
-    navigate('/pages/home');
-  }
+  // const goHome = () => {
+  //   navigate('/pages/home');
+  // }
 
   useEffect(() => {
     const url = "https://pub-static.fotor.com/assets/bg/49048260-583c-4945-a120-1df8c88e28ed.jpg";

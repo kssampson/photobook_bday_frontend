@@ -9,7 +9,7 @@ import Landing from './pages/Landing';
 import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 
-const { ToastContainer, toast } = createStandaloneToast()
+const { toast } = createStandaloneToast()
 
 const router = createBrowserRouter([
   {
@@ -31,16 +31,20 @@ const router = createBrowserRouter([
           const token = localStorage.getItem("token");
           if (token) {
             try {
-              const response = undefined; //replace this with endpoint to get user profile data
+              const response = await axios.get(`${process.env.API_BASE_URL}/auth/get-user`,
+                { headers: { Authorization: `Bearer ${token}` } }
+              );
+              return response.data;
             } catch {
               toast({
-                title: 'Error.',
+                title: '',
                 position: "top-right",
-                description: 'Please sign up log into your account.',
-                status: 'error',
-                duration: 3000,
+                description: 'Please sign up or log into your account.',
+                status: 'warning',
+                duration: 2000,
                 isClosable: true,
               })
+              return null;
             }
           }
         }
