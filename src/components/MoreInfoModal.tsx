@@ -24,6 +24,9 @@ const MoreInfoModal = () => {
               <Text fontSize="md">
                 We’re creating a high-quality printed memory book for Danielle. Friends and family can upload letters and photos. As Danielle goes through the book, she’ll see the photos on the left and the heartfelt notes, letters, or messages on the right.
               </Text>
+              <Text fontSize="md">
+                Users who create and account to share with Danielle will be able to view the digital photobook available on this site on her birthday on November 11th!
+              </Text>
 
               <Box>
                 <Heading size="sm" mb={3}>
@@ -32,7 +35,7 @@ const MoreInfoModal = () => {
                 <OrderedList spacing={3}>
                   <HStack>
                     <HStack w={"full"} justifyContent={"space-between"}>
-                      <ListItem>Create a secure account to:</ListItem>
+                      <ListItem>Create a secure account:</ListItem>
                       <HStack>
                         <CheckIcon boxSize={"1em"} color={"green"}/>
                         <Text pr={"1"}>Easy</Text>
@@ -63,10 +66,10 @@ const MoreInfoModal = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button colorScheme="blue" mr={3}>
+              Let's do it!
             </Button>
-            <Button variant="ghost">Sign Up!</Button>
+            <Button variant="ghost" onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
