@@ -26,7 +26,7 @@ function App() {
           width="100%"
           height="100%"
           objectFit="cover"
-          zIndex={-1} // Ensure it's in the background
+          zIndex={-1}
         />
 
         {/* Content Outlet */}

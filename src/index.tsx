@@ -10,6 +10,8 @@ import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import Home from './pages/Home';
+import LetterAndPhoto from './pages/LetterAndPhoto';
 
 const { toast } = createStandaloneToast()
 
@@ -77,8 +79,8 @@ const router = createBrowserRouter([
         }
       },
       {
-        path: 'main',
-        element: <Main/>,
+        path: 'submit',
+        element: <LetterAndPhoto/>,
         loader: async () => {
           const token = localStorage.getItem("token");
           if (token) {
@@ -100,7 +102,6 @@ const router = createBrowserRouter([
             }
           }
         }
-
       },
     ],
   },
