@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Letter from '../components/Letter';
-import { Box, Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Heading, Stack, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Card, CardBody, CardFooter, Heading, Stack, Text, VStack } from '@chakra-ui/react';
+import UploadFile from '../components/UploadFile';
 
 const LetterAndPhoto = () => {
 
-  const navigate = useNavigate();
+  const [files, setFiles] = useState<File[]>([]);
+  const [letterContent, setLetterContent] = useState<string>('');
+  const [deltaContent, setDeltaContent] = useState<any>(null);
+  // const [takePhotoFiles, setTakePhotoFiles] = useState<File[]>([]);  state for taking a photo later
+
+  const handleSave = () => {
+    console.log('files: ', files)
+    // if (!letterContent.trim()) {
+    //   setError('Letter content is required');
+    //   return;
+    // }
+    // setError('');
+    console.log('letterContent: ', letterContent);
+    console.log('deltaContent: ', deltaContent);
+  };
+
   return (
     <Box
         display="flex"
@@ -13,18 +28,36 @@ const LetterAndPhoto = () => {
         alignItems={"center"}
         height={"100%"}
         padding={{base: 4, md: 8}}
+        h={"100vh"}
+        overflowY={"auto"}
       >
-    <Card maxW="xl" >
-      <CardBody>
-        <Stack mt="6" spacing="3">
-          <Heading size="md">Please Write Your Letter</Heading>
-          <Letter />
-        </Stack>
-      </CardBody>
-      <CardFooter>
-        Card Footer
-      </CardFooter>
-    </Card>
+        <VStack>
+          <Card w={"full"}>
+            <CardBody>
+              <Stack>
+                <Heading size="md">Please Upload Your Photos</Heading>
+                  <UploadFile
+                    files={files}
+                    setFiles={setFiles}
+                  />
+              </Stack>
+              <Stack mt="6" spacing="3">
+                <Heading size="md">Please Write Your Letter</Heading>
+                <Letter
+                  letterContent={letterContent}
+                  setLetterContent={setLetterContent}
+                  deltaContent={deltaContent}
+                  setDeltaContent={setDeltaContent}
+                />
+              </Stack>
+            </CardBody>
+            <CardFooter justifyContent={"center"}>
+              <Button ml={4} variant="solid" colorScheme="blue" onClick={handleSave}>
+              Save
+              </Button>
+            </CardFooter>
+          </Card>
+        </VStack>
     </Box>
   )
 };

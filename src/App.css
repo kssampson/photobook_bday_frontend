@@ -4,10 +4,18 @@
   text-align: center;
 }
 
+.ql-container {
+  height: 43.3vh;
+}
+
+.ql-editor {
+  min-height: 200px;
+}
+
 .arrow-icon {
   width: 50px;
   height: 50px;
-  display: inline-block; /* Ensures it behaves like an inline element */
+  display: inline-block;
   animation: moveArrow 0.8s infinite alternate;
 }
 

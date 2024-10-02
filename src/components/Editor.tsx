@@ -42,7 +42,7 @@ const Editor = forwardRef<Quill | null, Props>(
       // Initialize Quill
       const quill = new Quill(editorContainer, {
         theme: 'snow',
-        placeholder: 'Write your letter here',
+        placeholder: 'Dear Danielle...',
         modules: {
           toolbar: '#toolbar',
         },
