@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
 // import Temp from './Temp';
-import Main from './components/Main';
 import Landing from './pages/Landing';
 import { createStandaloneToast } from '@chakra-ui/react';
 import axios from 'axios';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
-import Home from './pages/Home';
 import LetterAndPhoto from './pages/LetterAndPhoto';
 
 const { toast } = createStandaloneToast()
@@ -31,52 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignUp />,
-        loader: async () => {
-          const token = localStorage.getItem("token");
-          if (token) {
-            try {
-              const response = await axios.get(`${process.env.API_BASE_URL}/auth/get-user`,
-                { headers: { Authorization: `Bearer ${token}` } }
-              );
-              return response.data;
-            } catch {
-              toast({
-                title: '',
-                position: "top-right",
-                description: 'Please sign up or log into your account.',
-                status: 'warning',
-                duration: 2000,
-                isClosable: true,
-              })
-              return null;
-            }
-          }
-        }
       },
       {
         path: 'login',
         element: <LogIn />,
-        loader: async () => {
-          const token = localStorage.getItem("token");
-          if (token) {
-            try {
-              const response = await axios.get(`${process.env.API_BASE_URL}/auth/get-user`,
-                { headers: { Authorization: `Bearer ${token}` } }
-              );
-              return response.data;
-            } catch {
-              toast({
-                title: '',
-                position: "top-right",
-                description: 'Please sign up or log into your account.',
-                status: 'warning',
-                duration: 2000,
-                isClosable: true,
-              })
-              return null;
-            }
-          }
-        }
       },
       {
         path: 'submit',
@@ -85,7 +41,7 @@ const router = createBrowserRouter([
           const token = localStorage.getItem("token");
           if (token) {
             try {
-              const response = await axios.get(`${process.env.API_BASE_URL}/auth/get-user`,
+              const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/get-user`,
                 { headers: { Authorization: `Bearer ${token}` } }
               );
               return response.data;
@@ -98,7 +54,7 @@ const router = createBrowserRouter([
                 duration: 2000,
                 isClosable: true,
               })
-              return null;
+              return redirect('/signup');
             }
           }
         }

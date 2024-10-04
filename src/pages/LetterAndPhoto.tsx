@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Letter from '../components/Letter';
-import { Box, Button, Card, CardBody, CardFooter, Heading, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardFooter, Heading, Stack, Text, VStack, useDisclosure } from '@chakra-ui/react';
 import UploadFile from '../components/UploadFile';
+import { useLoaderData } from 'react-router-dom';
+import InstructionsModal from '../components/InstructionsModal';
+
+export type Data = {
+  id: number;
+  username: string;
+  email: string;
+}
 
 const LetterAndPhoto = () => {
+
+  const userData = useLoaderData() as Data;
+  console.log('userData on front end: ', userData)
+
+  // const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
   const [files, setFiles] = useState<File[]>([]);
   const [letterContent, setLetterContent] = useState<string>('');
@@ -58,6 +71,7 @@ const LetterAndPhoto = () => {
             </CardFooter>
           </Card>
         </VStack>
+        <InstructionsModal />
     </Box>
   )
 };

@@ -1,21 +1,18 @@
-import { validateInputs } from "../utils/validateInputs";
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Spinner, useDisclosure } from "@chakra-ui/react"
-import login from "../utils/login";
-import { redirect } from "react-router-dom";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { useNavigate } from "react-router-dom";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import login from "../utils/login";
 import OtpModal from "../components/OtpModal";
-
+import { validateInputs } from "../utils/validateInputs";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const LogIn = () => {
 
+  const navigate = useNavigate();
+
   const toast = useToast();
-
-  const [visitorId, setVisitorId] = useState<string | null>(null);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [visitorId, setVisitorId] = useState<string | null>(null);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,137 +24,111 @@ const LogIn = () => {
   const isErrorPassword = !validateInputs.isValidPassword(password) && passwordSubmitted;
 
   const onChangeName = (e: any) => {
-    setUsernameSubmitted(false);
     setUsername(e.target.value);
-  }
+    setUsernameSubmitted(false);
+  };
 
   const onChangePassword = (e: any) => {
-    setPasswordSubmitted(false)
     setPassword(e.target.value);
-  }
+    setPasswordSubmitted(false);
+  };
 
-  const resetUsernamePasswordStates = () => {
+  const resetFormStates = () => {
     setUsername("");
     setPassword("");
     setUsernameSubmitted(false);
     setPasswordSubmitted(false);
-    return null;
-  }
+  };
 
   const onSubmit = async () => {
-      try {
-        setUsernameSubmitted(true);
-        setPasswordSubmitted(true);
-        const response = (await login(username, password, visitorId)).data;
-        if (response.success) {
-          const token = response.data.token;
-          const id = response.data.id;
-          localStorage.setItem("token", token);
-          resetUsernamePasswordStates();
-          setIsLoggedIn(true);
-          toast({
-            title: "Login successful.",
-            position: "top-right",
-            description: `${response.message}`,
-            status: "success",
-            duration: 7000,
-            isClosable: true,
-          });
-          resetUsernamePasswordStates();
-          redirect('/temp')
-        } else if (!response.success) {
-          //check for invalid email
-          if (response.invalidUsername || response.invalidPassword || response.noVisitorRecord) {
-            toast({
-              title: "Error:",
-              position: "top-right",
-              description: `${response.message}`,
-              status: "error",
-              duration: 7000,
-              isClosable: true,
-            });
-            resetUsernamePasswordStates();
-          } else if (response.needs2Fa) {
-            toast({
-              title: "Notice: ",
-              position: "top-right",
-              description: `${response.message}`,
-              status: "error",
-              duration: 7000,
-              isClosable: true,
-            });
-            onOpen();
-          }
-        }
-        return;
-      } catch (error) {
+    setUsernameSubmitted(true);
+    setPasswordSubmitted(true);
+
+    if (!validateInputs.isValidUsername(username) || !validateInputs.isValidPassword(password)) {
+      return;
+    }
+
+    try {
+      const response = await login(username, password, visitorId);
+      console.log('response.data.token in login.tsx: ', response)
+      if (response.success) {
+        localStorage.setItem("token", response.token);
         toast({
-          title: "Error logging in. Please try again.",
-          position: "top-right",
-          description: `${error}`,
-          status: "error",
-          duration: 7000,
+          title: "Login Successful",
+          status: "success",
+          duration: 5000,
           isClosable: true,
         });
-        resetUsernamePasswordStates();
+        resetFormStates();
+        navigate('/submit');
+      } else if (response.needs2Fa) {
+        onOpen();
+      } else {
+        toast({
+          title: "Error",
+          description: response.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        resetFormStates();
       }
-  }
+    } catch (error) {
+      console.log(error)
+      toast({
+        title: "Error Logging In",
+        description: "Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
 
   useEffect(() => {
-    const setFp = async () => {
+    const fetchVisitorId = async () => {
       const fp = await FingerprintJS.load();
       const { visitorId } = await fp.get();
       setVisitorId(visitorId);
     };
-
-    setFp();
+    fetchVisitorId();
   }, []);
 
   return (
     <Box>
-      <VStack >
+      <VStack>
         <Heading mb={6}>Log-In</Heading>
         <Box maxWidth={"75%"} width={"100%"}>
           <Stack spacing={3}>
-                <Box>
-                  <FormControl isInvalid={isErrorUsername} isRequired>
-                    <FormLabel>Username:</FormLabel>
-                    <Input type='text' value={username ? username : ""} onChange={onChangeName} />
-                    {!isErrorUsername ? null : (
-                      <FormErrorMessage>Name is required.</FormErrorMessage>
-                    )}
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl isInvalid={isErrorPassword} isRequired>
-                    <FormLabel>Password:</FormLabel>
-                    <Input type='password' value={password} onChange={onChangePassword} />
-                    {!isErrorPassword ? null : (
-                      <FormErrorMessage>Password is required.</FormErrorMessage>
-                    )}
-                  </FormControl>
-                </Box>
-                <Button
-                colorScheme='blue'
-                onClick={onSubmit}
-                >Submit
-                </Button>
+            <FormControl isInvalid={isErrorUsername} isRequired>
+              <FormLabel>Username</FormLabel>
+              <Input value={username} onChange={onChangeName} />
+              {isErrorUsername && <FormErrorMessage>Username is invalid</FormErrorMessage>}
+            </FormControl>
+
+            <FormControl isInvalid={isErrorPassword} isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input type="password" value={password} onChange={onChangePassword} />
+              {isErrorPassword && <FormErrorMessage>Password is required</FormErrorMessage>}
+            </FormControl>
+
+            <Button colorScheme="blue" onClick={onSubmit}>
+              Submit
+            </Button>
           </Stack>
         </Box>
       </VStack>
+
+      {/* OTP Modal */}
       <OtpModal
-          visitorId={visitorId}
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          isOpen={isOpen}
-          onOpen={onOpen}
-          onClose={onClose}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+        visitorId={visitorId}
+        username={username}
+        password={password}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Box>
-  )
-}
+  );
+};
 
 export default LogIn;

@@ -1,137 +1,98 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { validateInputs } from "../utils/validateInputs";
 import processOtp from "../utils/ProcessOtp";
 
 type Props = {
   visitorId: string | null;
   username: string;
-  setUsername: React.Dispatch<React.SetStateAction<string>>;
   password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
-const OtpModal = ( { visitorId, username, setUsername, password, setPassword, isOpen, onOpen, onClose, setIsLoggedIn }: Props ) => {
-
-  const initialRef = React.useRef(null)
-  const finalRef = React.useRef(null)
-
+const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => {
   const toast = useToast();
-
   const [otp, setOtp] = useState<string>("");
   const [otpSubmitted, setOtpSubmitted] = useState<boolean>(false);
   const isErrorOtp = !validateInputs.isValidOtp(otp) && otpSubmitted;
 
   const onChangeOtp = (e: any) => {
-    setOtpSubmitted(false);
     setOtp(e.target.value);
-  }
+    setOtpSubmitted(false);
+  };
 
   const onCancel = () => {
-    setOtp('');
-    setUsername('');
-    setPassword('');
-    setOtpSubmitted(false);
+    setOtp("");
+    onClose();
     toast({
-      title: `Error`,
-      position: "top-right",
-      description: `Please try again.`,
-      status: 'error',
-      duration: 7000,
+      title: "OTP Verification Canceled",
+      status: "info",
+      duration: 5000,
       isClosable: true,
     });
-    onClose();
-  }
+  };
 
   const handleSubmit = async () => {
+    setOtpSubmitted(true);
+
+    if (!validateInputs.isValidOtp(otp)) return;
+
     try {
-      setOtpSubmitted(true);
       const response = await processOtp(username, password, visitorId, otp);
       if (response.success) {
         toast({
-          title: `Success:`,
-          position: "top-right",
-          description: `${response.message}`,
-          status: 'success',
-          duration: 7000,
+          title: "OTP Verified Successfully",
+          status: "success",
+          duration: 5000,
           isClosable: true,
         });
-        setIsLoggedIn(true);
-        setOtp('');
-        setOtpSubmitted(false);
-        setUsername('');
-        setPassword('');
+        setOtp("");
         onClose();
       } else {
         toast({
-          title: `Error:`,
-          position: "top-right",
-          description: `${response.message}`,
-          status: 'error',
-          duration: 7000,
+          title: "OTP Verification Failed",
+          description: response.message,
+          status: "error",
+          duration: 5000,
           isClosable: true,
         });
-        setOtp('');
-        setOtpSubmitted(false);
-        setUsername('');
-        setPassword('');
-        onClose();
+        setOtp("");
       }
     } catch (error) {
       toast({
-        title: `Error: ${error}`,
-        position: "top-right",
-        description: `Please try again.`,
-        status: 'error',
-        duration: 7000,
+        title: "Error",
+        description: `An error occurred while verifying OTP.`,
+        status: "error",
+        duration: 5000,
         isClosable: true,
       });
-      setOtp('');
-      setOtpSubmitted(false);
-      setUsername('');
-      setPassword('');
-      onClose();
+      setOtp("");
     }
-  }
+  };
 
   return (
-    <>
-    <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Check Email for One Time Password</ModalHeader>
-          <ModalCloseButton onClick={onCancel}/>
-          <ModalBody pb={6}>
-            <FormControl>
-              <HStack>
-              <FormControl isInvalid={isErrorOtp} isRequired>
-                <FormLabel>One Time Password:</FormLabel>
-                <Input type='Otp' value={otp} onChange={onChangeOtp} />
-                {!isErrorOtp ? null : (
-                  <FormErrorMessage>Must be 6 characters</FormErrorMessage>
-                )}
-              </FormControl>
-              </HStack>
-            </FormControl>
-          </ModalBody>
-        {!otpSubmitted && (
-          <>
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
-              Send
-            </Button>
-            <Button onClick={onCancel}>Cancel</Button>
-          </ModalFooter>
-          </>
-        )}
+        <ModalHeader>Enter OTP</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <FormControl isInvalid={isErrorOtp} isRequired>
+            <FormLabel>One-Time Password:</FormLabel>
+            <Input type="text" value={otp} onChange={onChangeOtp} />
+            {isErrorOtp && <FormErrorMessage>OTP must be 6 characters</FormErrorMessage>}
+          </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={handleSubmit} isDisabled={!otp || otpSubmitted}>
+            Submit
+          </Button>
+          <Button onClick={onCancel}>Cancel</Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
-    </>
-  )
+  );
 };
 
 export default OtpModal;
