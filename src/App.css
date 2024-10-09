@@ -9,7 +9,9 @@
 }
 
 .ql-editor {
-  min-height: 200px;
+  min-height: 100px;
+  max-height: 50vh;
+  min-width: 80vw;
 }
 
 .arrow-icon {

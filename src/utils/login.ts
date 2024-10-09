@@ -5,7 +5,6 @@ const login = async (username: string, password: string, visitorId: string | nul
     const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/log-in`, {username, password, visitorId})
     return response.data
   } catch(error){
-    console.log('**error in login.ts front end: ', error)
     throw new Error();
   }
 }

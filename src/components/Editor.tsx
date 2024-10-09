@@ -1,4 +1,3 @@
-import { Box, VStack } from '@chakra-ui/react';
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import React, { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
@@ -69,12 +68,11 @@ const Editor = forwardRef<Quill | null, Props>(
         onSelectionChangeRef.current(range, oldRange);
       });
 
-      // Cleanup on unmount
       return () => {
         if (ref && typeof ref !== 'function') {
           ref.current = null;
         }
-        container.innerHTML = ''; // Clear the container's contents
+        container.innerHTML = '';
       };
     }, [ref]);
 
