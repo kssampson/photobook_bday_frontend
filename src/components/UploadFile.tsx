@@ -37,7 +37,7 @@ const UploadFile = ( { files, setFiles }: Props ) => {
       textAlign="center"
       margin="auto"
       w="100%"
-      h="25%"
+      // h="2%"
       justifyContent="start"
       // shadow="outline"
       cursor="pointer"
@@ -45,7 +45,7 @@ const UploadFile = ( { files, setFiles }: Props ) => {
       <Box
         {...getRootProps()}
         textAlign="center"
-        p="20px"
+        p="10px"
         border="3px dashed"
         borderColor={borderColor}
         bgColor="#fafafa"

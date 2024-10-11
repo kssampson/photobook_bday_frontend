@@ -8,6 +8,7 @@ import saveLetter from '../utils/saveLetter';
 import getLetter from '../utils/getLetter';
 import Quill from 'quill';
 
+
 export type Data = {
   id: number;
   username: string;
@@ -62,14 +63,13 @@ const LetterAndPhoto = () => {
         display="flex"
         justifyContent="center"
         alignItems={"center"}
-        height={"100%"}
+        minHeight={"100%"}
+        // h={"100vh"}
         padding={{base: 4, md: 8}}
-        h={"100vh"}
-        overflowY={"auto"}
       >
-        <VStack>
+        <VStack p={4}>
           <Card w={"full"}>
-            <CardBody>
+            <CardBody className='tooshie'>
               <Stack>
                 <Heading size="md">Hi {userData.username}! Upload your photos below</Heading>
                   <UploadFile
@@ -77,7 +77,7 @@ const LetterAndPhoto = () => {
                     setFiles={setFiles}
                   />
               </Stack>
-              <Stack mt="4" spacing="3">
+              <Stack mt="4">
                 <Heading size="md">{!readOnly ? 'Please Write Your Letter': 'Your Letter to Danielle:'}</Heading>
                 <Checkbox
                   isChecked={readOnly}
