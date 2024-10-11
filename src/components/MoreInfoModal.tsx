@@ -3,9 +3,12 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { CgArrowLeft } from "react-icons/cg";
 import { CheckIcon } from '@chakra-ui/icons';
+import { useNavigate } from "react-router-dom";
 
 
 const MoreInfoModal = () => {
+
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -66,10 +69,7 @@ const MoreInfoModal = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Let's do it!
-            </Button>
-            <Button variant="ghost" onClick={onClose}>Close</Button>
+            <Button colorScheme="blue" onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

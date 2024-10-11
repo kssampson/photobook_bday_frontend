@@ -104,9 +104,6 @@ const LetterAndPhoto = () => {
               <Button ml={4} variant="solid" colorScheme="blue" onClick={handleSave}>
               Save
               </Button>
-              <Button onClick={retrieveExistingLetter}>
-                Get Letter Temp
-              </Button>
             </CardFooter>
           </Card>
         </VStack>

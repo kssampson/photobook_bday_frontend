@@ -27,10 +27,6 @@ function App() {
           zIndex={-1}
         />
 
-        <Box pb={["44px", "44px", "40px"]}>
-          <Nav />
-        </Box>
-
         <Box zIndex={1} height="100%" className='booger'>
           <Outlet />
         </Box>

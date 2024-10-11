@@ -37,7 +37,7 @@ const LandingInfoCard = ({ danielleImage, setDanielleImage }: Props) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue" onClick={() => navigate("/signup")}>
+          <Button variant="solid" colorScheme="blue" onClick={() => navigate("/landing/signup")}>
             Let's do it!
           </Button>
           <MoreInfoModal />

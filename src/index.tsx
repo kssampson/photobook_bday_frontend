@@ -10,8 +10,34 @@ import axios from 'axios';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import LetterAndPhoto from './pages/LetterAndPhoto';
+import Home from './pages/Home';
+import HomeLanding from './pages/HomeLanding';
 
-const { toast } = createStandaloneToast()
+const { toast } = createStandaloneToast();
+
+const checkAuthLoader = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/get-user`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch {
+      toast({
+        title: '',
+        position: "top-right",
+        description: 'Your session has expired. Please log in again.',
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+      return redirect('/login');
+    }
+  } else {
+    return redirect('/login');
+  }
+};
 
 const router = createBrowserRouter([
   {
@@ -20,44 +46,38 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="landing" replace />
+        element: <Navigate to="landing" replace />,
       },
       {
         path: 'landing',
-        element: <Landing />
+        element: <Landing />,
+        children: [
+          {
+            path: 'signup',
+            element: <SignUp />,
+          },
+          {
+            path: 'login',
+            element: <LogIn />
+          },
+        ]
       },
       {
-        path: 'signup',
-        element: <SignUp />,
-      },
-      {
-        path: 'login',
-        element: <LogIn />,
-      },
-      {
-        path: 'submit',
-        element: <LetterAndPhoto/>,
-        loader: async () => {
-          const token = localStorage.getItem("token");
-          if (token) {
-            try {
-              const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/get-user`,
-                { headers: { Authorization: `Bearer ${token}` } }
-              );
-              return response.data;
-            } catch {
-              toast({
-                title: '',
-                position: "top-right",
-                description: 'Please sign up or log into your account.',
-                status: 'warning',
-                duration: 2000,
-                isClosable: true,
-              })
-              return redirect('/signup');
-            }
-          }
-        }
+        path: 'home',
+        element: <Home />,
+        loader: checkAuthLoader,
+        children: [
+          {
+            index: true,
+            element: <HomeLanding />,
+
+          },
+          {
+            path: 'submit',
+            element: <LetterAndPhoto/>,
+            loader: checkAuthLoader
+          },
+        ]
       },
     ],
   },

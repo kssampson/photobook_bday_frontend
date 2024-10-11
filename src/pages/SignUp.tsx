@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text, CardBody, Card } from "@chakra-ui/react";
 import { validateInputs } from "../utils/validateInputs";
 import createUserSubmit from "../utils/createUserSubmit";
 import { useEffect, useState } from "react";
@@ -136,57 +136,69 @@ const SignUp = () => {
   }, []);
 
   return (
-    <Box>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems={"center"}
+      minHeight={"100%"}
+      h={"100vh"}
+      padding={{base: 4, md: 8}}
+    >
       <VStack >
-        <Heading mb={6}>Create Account</Heading>
-        <Box maxWidth={"75%"} width={"100%"}>
-          <Stack spacing={3}>
-            <Box>
-              <FormControl isInvalid={isErrorUsername} isRequired>
-                <FormLabel>Username:</FormLabel>
-                <Input type='text' value={username ? username : ""} onChange={onChangeusername} />
-                {!isErrorUsername ? null : (
-                  <FormErrorMessage>username is required.</FormErrorMessage>
-                )}
-              </FormControl>
+        <Card>
+          <CardBody>
+            <Heading textAlign={"center"} mb={6}>Create Account</Heading>
+            <Box maxWidth={"100%"} width={"100%"}>
+              <Stack spacing={3}>
+                <Box>
+                  <FormControl isInvalid={isErrorUsername} isRequired>
+                    <FormLabel>Username:</FormLabel>
+                    <Input type='text' value={username ? username : ""} onChange={onChangeusername} />
+                    {!isErrorUsername ? null : (
+                      <FormErrorMessage>username is required.</FormErrorMessage>
+                    )}
+                  </FormControl>
+                </Box>
+                <Box>
+                  <FormControl isInvalid={isErrorEmail} isRequired>
+                    <FormLabel>Email:</FormLabel>
+                    <Input type='email' value={email} onChange={onChangeEmail} />
+                    {!isErrorEmail ? null : (
+                      <FormErrorMessage>Email is required.</FormErrorMessage>
+                    )}
+                  </FormControl>
+                </Box>
+                <Box>
+                  <FormControl isInvalid={isErrorPassword} isRequired>
+                    <FormLabel>Password:</FormLabel>
+                    <Input type='password' value={password} onChange={onChangePassword} />
+                    {!isErrorPassword ? null : (
+                      <FormErrorMessage>Password is required.</FormErrorMessage>
+                    )}
+                  </FormControl>
+                </Box>
+                <Box>
+                  <FormControl isInvalid={isErrorSecondPassword} isRequired>
+                    <FormLabel>Confirm Password:</FormLabel>
+                    <Input type='password' value={secondPassword} onChange={onChangeSecondPassword} />
+                    {!isErrorSecondPassword ? null : (
+                      <FormErrorMessage>Passwords Do Not Match.</FormErrorMessage>
+                    )}
+                  </FormControl>
+                </Box>
+                <Button
+                colorScheme='blue'
+                onClick={onSubmit}
+                >Submit
+                </Button>
+                <Button onClick={() => navigate("/landing/login")}>
+                  Already have an accout?
+                </Button>
+              </Stack>
             </Box>
-            <Box>
-              <FormControl isInvalid={isErrorEmail} isRequired>
-                <FormLabel>Email:</FormLabel>
-                <Input type='email' value={email} onChange={onChangeEmail} />
-                {!isErrorEmail ? null : (
-                  <FormErrorMessage>Email is required.</FormErrorMessage>
-                )}
-              </FormControl>
-            </Box>
-            <Box>
-              <FormControl isInvalid={isErrorPassword} isRequired>
-                <FormLabel>Password:</FormLabel>
-                <Input type='password' value={password} onChange={onChangePassword} />
-                {!isErrorPassword ? null : (
-                  <FormErrorMessage>Password is required.</FormErrorMessage>
-                )}
-              </FormControl>
-            </Box>
-            <Box>
-              <FormControl isInvalid={isErrorSecondPassword} isRequired>
-                <FormLabel>Confirm Password:</FormLabel>
-                <Input type='password' value={secondPassword} onChange={onChangeSecondPassword} />
-                {!isErrorSecondPassword ? null : (
-                  <FormErrorMessage>Passwords Do Not Match.</FormErrorMessage>
-                )}
-              </FormControl>
-            </Box>
-            <Button
-            colorScheme='blue'
-            onClick={onSubmit}
-            >Submit
-            </Button>
-            <Button onClick={() => navigate("/login")}>
-              Already have an accout?
-            </Button>
-          </Stack>
-        </Box>
+
+          </CardBody>
+        </Card>
       </VStack>
     </Box>
   );

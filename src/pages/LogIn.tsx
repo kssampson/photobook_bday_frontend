@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure, CardBody, Card } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import login from "../utils/login";
@@ -60,7 +60,7 @@ const LogIn = () => {
           isClosable: true,
         });
         resetFormStates();
-        navigate('/submit');
+        navigate('/home');
       } else if (response.needs2Fa) {
         onOpen();
       } else {
@@ -95,28 +95,43 @@ const LogIn = () => {
   }, []);
 
   return (
-    <Box>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems={"center"}
+      minHeight={"100%"}
+      h={"100vh"}
+      padding={{base: 4, md: 8}}
+    >
       <VStack>
-        <Heading mb={6}>Log-In</Heading>
-        <Box maxWidth={"75%"} width={"100%"}>
-          <Stack spacing={3}>
-            <FormControl isInvalid={isErrorUsername} isRequired>
-              <FormLabel>Username</FormLabel>
-              <Input value={username} onChange={onChangeName} />
-              {isErrorUsername && <FormErrorMessage>Username is invalid</FormErrorMessage>}
-            </FormControl>
+        <Card>
+          <CardBody>
+            <Heading textAlign={"center"} mb={6}>Log-In</Heading>
+            <Box maxWidth={"100%"} width={"100%"}>
+              <Stack spacing={3}>
+                <FormControl isInvalid={isErrorUsername} isRequired>
+                  <FormLabel>Username</FormLabel>
+                  <Input value={username} onChange={onChangeName} />
+                  {isErrorUsername && <FormErrorMessage>Username is invalid</FormErrorMessage>}
+                </FormControl>
 
-            <FormControl isInvalid={isErrorPassword} isRequired>
-              <FormLabel>Password</FormLabel>
-              <Input type="password" value={password} onChange={onChangePassword} />
-              {isErrorPassword && <FormErrorMessage>Password is required</FormErrorMessage>}
-            </FormControl>
+                <FormControl isInvalid={isErrorPassword} isRequired>
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" value={password} onChange={onChangePassword} />
+                  {isErrorPassword && <FormErrorMessage>Password is required</FormErrorMessage>}
+                </FormControl>
 
-            <Button colorScheme="blue" onClick={onSubmit}>
-              Submit
-            </Button>
-          </Stack>
-        </Box>
+                <Button colorScheme="blue" onClick={onSubmit}>
+                  Submit
+                </Button>
+                <Button onClick={() => navigate("/landing/signup")}>
+                  Back to sign-up
+                </Button>
+              </Stack>
+            </Box>
+
+          </CardBody>
+        </Card>
       </VStack>
 
       {/* OTP Modal */}
