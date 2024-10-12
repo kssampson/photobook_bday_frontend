@@ -12,6 +12,7 @@ import LogIn from './pages/LogIn';
 import LetterAndPhoto from './pages/LetterAndPhoto';
 import Home from './pages/Home';
 import HomeLanding from './pages/HomeLanding';
+import LandingInfo from './pages/LandingInfo';
 
 const { toast } = createStandaloneToast();
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         element: <Landing />,
         children: [
           {
+            index: true,
+            element: <LandingInfo />,
+          },
+          {
             path: 'signup',
             element: <SignUp />,
           },
@@ -70,7 +75,6 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <HomeLanding />,
-
           },
           {
             path: 'submit',

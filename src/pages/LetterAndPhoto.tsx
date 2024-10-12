@@ -7,6 +7,7 @@ import InstructionsModal from '../components/InstructionsModal';
 import saveLetter from '../utils/saveLetter';
 import getLetter from '../utils/getLetter';
 import Quill from 'quill';
+import savePhoto from '../utils/savePhoto';
 
 
 export type Data = {
@@ -14,6 +15,7 @@ export type Data = {
   username: string;
   email: string;
 }
+
 
 const LetterAndPhoto = () => {
   const quillRef = useRef<Quill | null>(null);
@@ -29,7 +31,7 @@ const LetterAndPhoto = () => {
 
   // const [takePhotoFiles, setTakePhotoFiles] = useState<File[]>([]);  state for taking a photo later
 
-  const handleSave = async () => {
+  const handleLetterSave = async () => {
     if (letterContent.length === 0) {
       setError('Letter content is required');
       return;
@@ -37,8 +39,28 @@ const LetterAndPhoto = () => {
     setError('');
     const token = localStorage.getItem('token');
     const response = await saveLetter(userData.id, token, letterContent, deltaContent);
-
   };
+
+  const handlePhotoSave = async () => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+
+    const userDataIdStr = userData.id.toString();
+
+    //formData only accepts string, so append the id as a str for querying the db
+    formData.append('id', userDataIdStr);
+
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+
+    try {
+      const response = await savePhoto(formData, token);
+      console.log('savePhoto response in LetterAndPhoto: ', response);
+    } catch (error) {
+      console.error('Error saving photo: ', error);
+    }
+  }
 
   const retrieveExistingLetter = async () =>  {
     const token = localStorage.getItem('token');
@@ -71,11 +93,17 @@ const LetterAndPhoto = () => {
           <Card w={"full"}>
             <CardBody className='tooshie'>
               <Stack>
-                <Heading size="md">Hi {userData.username}! Upload your photos below</Heading>
+                <Heading size="md">Hi {userData.username}!</Heading>
+                <Heading size="sm" pt={4}>{files.length >= 2 ? '' : 'Select up to 2 photos'}</Heading>
+                <VStack>
                   <UploadFile
                     files={files}
                     setFiles={setFiles}
                   />
+                  <Box py={8}>
+                    <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo(s)</Button>
+                  </Box>
+                </VStack>
               </Stack>
               <Stack mt="4">
                 <Heading size="md">{!readOnly ? 'Please Write Your Letter': 'Your Letter to Danielle:'}</Heading>
@@ -101,7 +129,7 @@ const LetterAndPhoto = () => {
               </Stack>
             </CardBody>
             <CardFooter justifyContent={"center"}>
-              <Button ml={4} variant="solid" colorScheme="blue" onClick={handleSave}>
+              <Button ml={4} variant="solid" colorScheme="blue" onClick={handleLetterSave}>
               Save
               </Button>
             </CardFooter>

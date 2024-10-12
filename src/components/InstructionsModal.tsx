@@ -33,6 +33,7 @@ const InstructionsModal = () => {
                     </HStack>
                   </HStack>
                   <UnorderedList pl={5}>
+                  <ListItem>Make sure to click "save" -- come back and finish writing later!</ListItem>
                     <ListItem>Whatever (kind) words you have to share!</ListItem>
                     <ListItem>Don't be too bad!</ListItem>
                   </UnorderedList>
