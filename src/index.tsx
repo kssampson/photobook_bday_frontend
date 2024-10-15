@@ -33,10 +33,10 @@ const checkAuthLoader = async () => {
         duration: 2000,
         isClosable: true,
       });
-      return redirect('/login');
+      return redirect('/landing/login');
     }
   } else {
-    return redirect('/login');
+    return redirect('/landing/login');
   }
 };
 

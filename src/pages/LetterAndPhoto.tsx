@@ -8,6 +8,8 @@ import saveLetter from '../utils/saveLetter';
 import getLetter from '../utils/getLetter';
 import Quill from 'quill';
 import savePhoto from '../utils/savePhoto';
+import getPhotos from '../utils/getPhotos';
+import SavedPhotos from '../components/SavedPhotos';
 
 
 export type Data = {
@@ -23,6 +25,7 @@ const LetterAndPhoto = () => {
   const userData = useLoaderData() as Data;
 
   const [files, setFiles] = useState<File[]>([]);
+  const [photos, setPhotos] = useState<any>(null);
   const [letterContent, setLetterContent] = useState<string>('');
   const [deltaContent, setDeltaContent] = useState<any>(null);
   const [readOnly, setReadOnly] = useState(false);
@@ -75,9 +78,26 @@ const LetterAndPhoto = () => {
     }
   }
 
+  const retrieveExistingPhotos = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const response = await getPhotos(token);
+      if (response) {
+        const savedPhotos = { url1: response[0].url1, url2: response[0].url2 }
+        console.log('response: ', response)
+        setPhotos(savedPhotos);
+      }
+    }
+  }
+
+  const deletePhoto = (photos: string) => {
+    console.log(photos)
+  }
+
   useEffect(() => {
     //if there's an existing letter, populate form with the data and set to readOnly
     retrieveExistingLetter();
+    retrieveExistingPhotos();
   }, [])
 
   return (
@@ -94,7 +114,8 @@ const LetterAndPhoto = () => {
             <CardBody className='tooshie'>
               <Stack>
                 <Heading size="md">Hi {userData.username}!</Heading>
-                <Heading size="sm" pt={4}>{files.length >= 2 ? '' : 'Select up to 2 photos'}</Heading>
+                <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo(s):' : 'Select up to 2 photos'}</Heading>
+                {!photos && (
                 <VStack>
                   <UploadFile
                     files={files}
@@ -104,6 +125,12 @@ const LetterAndPhoto = () => {
                     <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo(s)</Button>
                   </Box>
                 </VStack>
+                )}
+                {photos && (
+                  <VStack>
+                    <SavedPhotos photos={photos} deletePhoto={deletePhoto}/>
+                  </VStack>
+                )}
               </Stack>
               <Stack mt="4">
                 <Heading size="md">{!readOnly ? 'Please Write Your Letter': 'Your Letter to Danielle:'}</Heading>
