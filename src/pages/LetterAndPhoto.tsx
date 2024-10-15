@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Letter from '../components/Letter';
-import { Box, Button, Card, CardBody, CardFooter, Checkbox, FormControl, FormHelperText, Heading, Stack, Text, VStack, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardFooter, Checkbox, FormControl, FormHelperText, Heading, Stack, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
 import UploadFile from '../components/UploadFile';
 import { useLoaderData } from 'react-router-dom';
 import InstructionsModal from '../components/InstructionsModal';
@@ -10,7 +10,7 @@ import Quill from 'quill';
 import savePhoto from '../utils/savePhoto';
 import getPhotos from '../utils/getPhotos';
 import SavedPhotos from '../components/SavedPhotos';
-
+import SavePhotoModal from '../components/SavePhotoModal';
 
 export type Data = {
   id: number;
@@ -21,6 +21,8 @@ export type Data = {
 
 const LetterAndPhoto = () => {
   const quillRef = useRef<Quill | null>(null);
+
+  const toast = useToast();
 
   const userData = useLoaderData() as Data;
 
@@ -44,6 +46,10 @@ const LetterAndPhoto = () => {
     const response = await saveLetter(userData.id, token, letterContent, deltaContent);
   };
 
+  const triggerSavePhotoModal = async () => {
+    <SavePhotoModal />
+  }
+
   const handlePhotoSave = async () => {
     const token = localStorage.getItem('token');
     const formData = new FormData();
@@ -59,7 +65,15 @@ const LetterAndPhoto = () => {
 
     try {
       const response = await savePhoto(formData, token);
-      console.log('savePhoto response in LetterAndPhoto: ', response);
+      setFiles([]);
+      toast({
+        title: 'Success',
+        position: "top-right",
+        description: "Letter saved successfully",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error('Error saving photo: ', error);
     }
@@ -95,7 +109,6 @@ const LetterAndPhoto = () => {
   }
 
   useEffect(() => {
-    //if there's an existing letter, populate form with the data and set to readOnly
     retrieveExistingLetter();
     retrieveExistingPhotos();
   }, [])
@@ -147,19 +160,21 @@ const LetterAndPhoto = () => {
                   error={error}
                   quillRef={quillRef}
                 />
+              </Stack>
+            </CardBody>
+              {!readOnly && (
+            <CardFooter justifyContent={"center"}>
                 <FormControl>
                   <FormHelperText>
                     <Text>Max Length: 2000</Text>
                     <Text>Current Length: {quillRef.current?.getLength()}</Text>
                   </FormHelperText>
                 </FormControl>
-              </Stack>
-            </CardBody>
-            <CardFooter justifyContent={"center"}>
-              <Button ml={4} variant="solid" colorScheme="blue" onClick={handleLetterSave}>
-              Save
-              </Button>
+                <Button ml={4} variant="solid" colorScheme="blue" onClick={handleLetterSave}>
+                Save
+                </Button>
             </CardFooter>
+              )}
           </Card>
         </VStack>
         <InstructionsModal />

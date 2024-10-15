@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom'
 import './App.css'
 import { ChakraProvider, Box, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
-import Nav from './components/Nav';
 
 function App() {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -26,7 +25,6 @@ function App() {
           objectFit="cover"
           zIndex={-1}
         />
-
         <Box zIndex={1} height="100%" className='booger'>
           <Outlet />
         </Box>

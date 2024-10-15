@@ -17,7 +17,7 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
       justifyContent="start"
       cursor="pointer"
     >
-      <Box mt="16px" display="flex" justifyContent="left" flexWrap="wrap" cursor={"default"}>
+      <Box mt="20px" display="flex" justifyContent="left" flexWrap="wrap" cursor={"default"}>
         {photos.url1 && (
           <Box position="relative" m="4px">
           <Box
@@ -30,7 +30,7 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
             cursor="default"
             alt="Saved Photo 1"
           />
-          <IconButton
+          {/* <IconButton
               aria-label="Remove file"
               icon={<CloseIcon />}
               position="absolute"
@@ -39,7 +39,7 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
               size="xs"
               colorScheme="red"
               // onClick={() => removeFile(file)}
-            />
+            /> */}
           </Box>
         )}
         {photos.url2 && (
@@ -54,7 +54,7 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
             cursor="default"
             alt="Saved Photo 2"
           />
-          <IconButton
+          {/* <IconButton
               aria-label="Remove file"
               icon={<CloseIcon />}
               position="absolute"
@@ -63,11 +63,9 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
               size="xs"
               colorScheme="red"
               // onClick={() => removeFile(file)}
-            />
+            /> */}
           </Box>
         )}
-
-
       </Box>
     </Box>
   );
