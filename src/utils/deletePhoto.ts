@@ -5,7 +5,6 @@ const deletePhoto = async ( token: string ) => {
       const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/auth/delete-photo`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      // console.log('response.data: ', response.data)
       return response.data;
     } catch (error: any) {
       console.error('an error occurred: ', error.response ? error.response.data : error.message)

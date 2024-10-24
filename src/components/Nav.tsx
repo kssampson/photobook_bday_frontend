@@ -12,7 +12,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/landing/login");
+    navigate("/landing");
   };
 
   const isAuthenticated = !!localStorage.getItem("token");
@@ -72,11 +72,11 @@ const Nav = () => {
               onClick={toggleMenu}
             />
             <MenuList>
-              <MenuItem onClick={toggleMenu} as={RouterLink} to="/landing">
+              <MenuItem onClick={toggleMenu} as={RouterLink} to="/home">
                 Home
               </MenuItem>
-              <MenuItem onClick={toggleMenu} as={RouterLink} to="/submit">
-                Submit
+              <MenuItem onClick={toggleMenu} as={RouterLink} to="/home/submit">
+                Letter/Photo
               </MenuItem>
               {isAuthenticated ? (
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>

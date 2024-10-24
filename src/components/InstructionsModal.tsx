@@ -9,12 +9,12 @@ const InstructionsModal = () => {
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Thanks for getting this far!</ModalHeader>
+          <ModalHeader>Important:</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={6} align="left">
               <Text fontSize="md">
-                It's best to be able to write it all in one go, but if you need to come back, maybe copy and paste into the letter field when you're ready!
+                Make to sure save your content before leaving or refreshing the page.
               </Text>
               <Box>
                 <OrderedList spacing={3}>
@@ -26,6 +26,7 @@ const InstructionsModal = () => {
                   <UnorderedList pl={5}>
                     <ListItem>Drag n' drop into the grey box, and/or</ListItem>
                     <ListItem>Click the grey box and choose file(s)</ListItem>
+                    <ListItem>The photos you save will be the photos used</ListItem>
                   </UnorderedList>
                   <HStack>
                     <HStack w={"full"} justifyContent={"space-between"}>
@@ -33,9 +34,8 @@ const InstructionsModal = () => {
                     </HStack>
                   </HStack>
                   <UnorderedList pl={5}>
-                  <ListItem>Make sure to click "save" -- come back and finish writing later!</ListItem>
-                    <ListItem>Whatever (kind) words you have to share!</ListItem>
-                    <ListItem>Don't be too bad!</ListItem>
+                  <ListItem>Make sure to save your letter so you can come back to it later if needed</ListItem>
+                    <ListItem>Make sure to sign your name!</ListItem>
                   </UnorderedList>
 
                 </OrderedList>

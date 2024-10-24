@@ -43,7 +43,26 @@ const LetterAndPhoto = () => {
     }
     setError('');
     const token = localStorage.getItem('token');
-    const response = await saveLetter(userData.id, token, letterContent, deltaContent);
+    try {
+      const response = await saveLetter(userData.id, token, letterContent, deltaContent);
+      toast({
+        title: "Succes",
+        position: "top-right",
+        status: "success",
+        description: `${response.message}`,
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        position: "top-right",
+        status: "error",
+        description: `${error.message}`,
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const triggerSavePhotoModal = async () => {
@@ -69,13 +88,21 @@ const LetterAndPhoto = () => {
       toast({
         title: 'Success',
         position: "top-right",
-        description: "Letter saved successfully",
+        description: `${response.message}`,
         status: 'success',
         duration: 3000,
         isClosable: true,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving photo: ', error);
+      toast({
+        title: 'Error',
+        position: "top-right",
+        description: `${error.message}`,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     }
   }
 
@@ -96,16 +123,14 @@ const LetterAndPhoto = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const response = await getPhotos(token);
-      if (response) {
+      if (response[0]) {
         const savedPhotos = { url1: response[0].url1, url2: response[0].url2 }
-        console.log('response: ', response)
         setPhotos(savedPhotos);
       }
     }
   }
 
   const deletePhoto = (photos: string) => {
-    console.log(photos)
   }
 
   useEffect(() => {
@@ -124,7 +149,7 @@ const LetterAndPhoto = () => {
       >
         <VStack p={4}>
           <Card w={"full"}>
-            <CardBody className='tooshie'>
+            <CardBody>
               <Stack>
                 <Heading size="md">Hi {userData.username}!</Heading>
                 <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo(s):' : 'Select up to 2 photos'}</Heading>

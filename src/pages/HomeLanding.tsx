@@ -28,7 +28,7 @@ const HomeLanding = () => {
                 </HStack>
               </HStack>
               <UnorderedList pl={5}>
-                <ListItem>Both physical and digital photo and memory books, made up of your contributions!</ListItem>
+                <ListItem>A physical and digital memory book, made up of your contributions!</ListItem>
               </UnorderedList>
               <HStack>
                 <HStack w={"full"} justifyContent={"space-between"}>
@@ -38,7 +38,7 @@ const HomeLanding = () => {
               <UnorderedList pl={5}>
                 <ListItem>Users have until Nov 10th (day before Danielle's b-day) to submit contributions</ListItem>
                 <ListItem>On Nov 11th the digital version will be viewable by Danielle and all who contributed via this site!</ListItem>
-                <ListItem>The physical book is set to be ordered duting her birthday week to allow for as many contributions as possible</ListItem>
+                <ListItem>The physical book is set to be ordered during her birthday week to allow for as many contributions as possible</ListItem>
               </UnorderedList>
 
             </OrderedList>
@@ -48,7 +48,7 @@ const HomeLanding = () => {
         <CardFooter>
           <ButtonGroup spacing="2">
             <Button variant="solid" colorScheme="blue" onClick={() => navigate("/home/submit")}>
-              Ok, I'm Ready!
+              Go to Letter/Photo
             </Button>
           </ButtonGroup>
         </CardFooter>

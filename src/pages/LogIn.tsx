@@ -50,11 +50,11 @@ const LogIn = () => {
 
     try {
       const response = await login(username, password, visitorId);
-      console.log('response.data.token in login.tsx: ', response)
       if (response.success) {
         localStorage.setItem("token", response.token);
         toast({
           title: "Login Successful",
+          position: "top-right",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -66,6 +66,7 @@ const LogIn = () => {
       } else {
         toast({
           title: "Error",
+          position: "top-right",
           description: response.message,
           status: "error",
           duration: 5000,
@@ -74,14 +75,15 @@ const LogIn = () => {
         resetFormStates();
       }
     } catch (error) {
-      console.log(error)
       toast({
         title: "Error Logging In",
+        position: "top-right",
         description: "Please try again.",
         status: "error",
         duration: 5000,
         isClosable: true,
       });
+      resetFormStates();
     }
   };
 

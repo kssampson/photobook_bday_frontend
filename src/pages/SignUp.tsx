@@ -10,8 +10,6 @@ const SignUp = () => {
 
   const [visitorId, setVisitorId] = useState<string | null>(null);
 
-  // const [accountCreated, setAccountCreated] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>("");
@@ -87,8 +85,7 @@ const SignUp = () => {
           duration: 7000,
           isClosable: true,
         });
-        // setAccountCreated(true);
-        navigate("/login");
+        navigate("/landing/login");
       }
 
 

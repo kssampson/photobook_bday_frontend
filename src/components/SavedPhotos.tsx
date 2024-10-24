@@ -7,7 +7,6 @@ type Props = {
 };
 
 const SavedPhotos = ({ photos, deletePhoto }: Props) => {
-  console.log('photos: ', photos);
 
   return (
     <Box

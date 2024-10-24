@@ -2,6 +2,7 @@ import { Button, FormControl, FormErrorMessage, FormLabel, HStack, Input, Modal,
 import { useState } from "react";
 import { validateInputs } from "../utils/validateInputs";
 import processOtp from "../utils/ProcessOtp";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   visitorId: string | null;
@@ -13,6 +14,7 @@ type Props = {
 
 const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => {
   const toast = useToast();
+  const navigate = useNavigate();
   const [otp, setOtp] = useState<string>("");
   const [otpSubmitted, setOtpSubmitted] = useState<boolean>(false);
   const isErrorOtp = !validateInputs.isValidOtp(otp) && otpSubmitted;
@@ -27,6 +29,7 @@ const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => 
     onClose();
     toast({
       title: "OTP Verification Canceled",
+      position: "top-right",
       status: "info",
       duration: 5000,
       isClosable: true,
@@ -43,15 +46,18 @@ const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => 
       if (response.success) {
         toast({
           title: "OTP Verified Successfully",
+          position: "top-right",
           status: "success",
           duration: 5000,
           isClosable: true,
         });
         setOtp("");
         onClose();
+        navigate("/home")
       } else {
         toast({
           title: "OTP Verification Failed",
+          position: "top-right",
           description: response.message,
           status: "error",
           duration: 5000,
@@ -62,6 +68,7 @@ const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => 
     } catch (error) {
       toast({
         title: "Error",
+        position: "top-right",
         description: `An error occurred while verifying OTP.`,
         status: "error",
         duration: 5000,
