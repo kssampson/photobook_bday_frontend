@@ -25,8 +25,7 @@ const InstructionsModal = () => {
                   </HStack>
                   <UnorderedList pl={5}>
                     <ListItem>Drag n' drop into the grey box, and/or</ListItem>
-                    <ListItem>Click the grey box and choose file(s)</ListItem>
-                    <ListItem>The photos you save will be the photos used</ListItem>
+                    <ListItem>Click the grey box and choose file</ListItem>
                   </UnorderedList>
                   <HStack>
                     <HStack w={"full"} justifyContent={"space-between"}>

@@ -26,6 +26,8 @@ const LetterAndPhoto = () => {
 
   const userData = useLoaderData() as Data;
 
+  const token = localStorage.getItem('token')
+
   const [files, setFiles] = useState<File[]>([]);
   const [photos, setPhotos] = useState<any>(null);
   const [letterContent, setLetterContent] = useState<string>('');
@@ -124,7 +126,7 @@ const LetterAndPhoto = () => {
     if (token) {
       const response = await getPhotos(token);
       if (response[0]) {
-        const savedPhotos = { url1: response[0].url1, url2: response[0].url2 }
+        const savedPhotos = { url1: response[0].url1 }
         setPhotos(savedPhotos);
       }
     }

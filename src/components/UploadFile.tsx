@@ -137,9 +137,8 @@ const UploadFile = ({ files, setFiles }: Props) => {
       }
     }
 
-    setFiles(prevFiles => {
-      const newFiles = [...prevFiles, ...validFiles];
-      return newFiles.slice(0, 2);
+    setFiles(() => {
+      return validFiles.length > 0 ? [validFiles[0]] : [];
     });
   };
 
@@ -154,7 +153,7 @@ const UploadFile = ({ files, setFiles }: Props) => {
       'image/heic': ['.heic'],
       'image/heif': ['.heif'],
     },
-    maxFiles: 2,
+    maxFiles: 1,
     onDrop: handleUpload,
   });
 
@@ -162,7 +161,7 @@ const UploadFile = ({ files, setFiles }: Props) => {
 
   return (
     <Box textAlign="center" margin="auto" w="100%" justifyContent="start" cursor="pointer">
-      {files.length < 2 && (
+      {files.length < 1 && (
         <Box
           {...getRootProps()}
           textAlign="center"
@@ -174,8 +173,8 @@ const UploadFile = ({ files, setFiles }: Props) => {
           mb="20px"
         >
           <input {...getInputProps()} />
-          <Text color="grey">Drag 'n' drop photos, or click to select files</Text>
-          <Text color="grey">(Max 2 photos, .jpg, .png, .heic, or .heif only)</Text>
+          <Text color="grey">Drag 'n' drop a photo, or click to select a file</Text>
+          <Text color="grey">(Max 1 photo, .jpg, .png, .heic, or .heif only)</Text>
         </Box>
       )}
       {files.length > 0 && (
