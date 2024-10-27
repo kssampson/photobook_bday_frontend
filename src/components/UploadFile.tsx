@@ -31,7 +31,7 @@ const UploadFile = ({ files, setFiles }: Props) => {
     const img = new Image();
     return new Promise((resolve, reject) => {
       img.onload = async () => {
-        const targetSize = 3000;
+        const targetSize = 1500;
         let width = img.width;
         let height = img.height;
 
