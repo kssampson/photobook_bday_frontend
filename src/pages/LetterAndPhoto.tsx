@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Letter from '../components/Letter';
-import { Box, Button, Card, CardBody, CardFooter, Checkbox, FormControl, FormHelperText, Heading, Stack, Text, VStack, useDisclosure, useToast } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardFooter, Checkbox, FormControl, FormHelperText, Heading, Stack, Text, VStack, useToast } from '@chakra-ui/react';
 import UploadFile from '../components/UploadFile';
 import { useLoaderData } from 'react-router-dom';
 import InstructionsModal from '../components/InstructionsModal';
@@ -11,6 +11,7 @@ import savePhoto from '../utils/savePhoto';
 import getPhotos from '../utils/getPhotos';
 import SavedPhotos from '../components/SavedPhotos';
 import SavePhotoModal from '../components/SavePhotoModal';
+import RelationRadio from '../components/RelationRadio';
 
 export type Data = {
   id: number;
@@ -26,17 +27,13 @@ const LetterAndPhoto = () => {
 
   const userData = useLoaderData() as Data;
 
-  const token = localStorage.getItem('token')
-
+  const [radioValue, setRadioValue] = useState("other");
   const [files, setFiles] = useState<File[]>([]);
   const [photos, setPhotos] = useState<any>(null);
   const [letterContent, setLetterContent] = useState<string>('');
   const [deltaContent, setDeltaContent] = useState<any>(null);
   const [readOnly, setReadOnly] = useState(false);
-  const [photoViewOnly, setPhotoViewOnly] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-
-  // const [takePhotoFiles, setTakePhotoFiles] = useState<File[]>([]);  state for taking a photo later
 
   const handleLetterSave = async () => {
     if (letterContent.length === 0) {
@@ -153,7 +150,11 @@ const LetterAndPhoto = () => {
           <Card w={"full"}>
             <CardBody>
               <Stack>
-                <Heading size="md">Hi {userData.username}!</Heading>
+                <Heading size="lg">Hi {userData.username}!</Heading>
+                <Box>
+                  <Text my={4}>How do you know Danielle?</Text>
+                  <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
+                </Box>
                 <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo(s):' : 'Select up to 2 photos'}</Heading>
                 {!photos && (
                 <VStack>
@@ -193,8 +194,8 @@ const LetterAndPhoto = () => {
             <CardFooter justifyContent={"center"}>
                 <FormControl>
                   <FormHelperText>
-                    <Text>Max Length: 2000</Text>
-                    <Text>Current Length: {quillRef.current?.getLength()}</Text>
+                    <Text>Max chars: 2000</Text>
+                    <Text>Current char count: {quillRef.current?.getLength()}</Text>
                   </FormHelperText>
                 </FormControl>
                 <Button ml={4} variant="solid" colorScheme="blue" onClick={handleLetterSave}>

@@ -9,12 +9,12 @@ const InstructionsModal = () => {
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Important:</ModalHeader>
+          <ModalHeader>Helpful Tips</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={6} align="left">
               <Text fontSize="md">
-                Make to sure save your content before leaving or refreshing the page.
+                Please save your content before leaving or refreshing the page.
               </Text>
               <Box>
                 <OrderedList spacing={3}>
@@ -33,8 +33,8 @@ const InstructionsModal = () => {
                     </HStack>
                   </HStack>
                   <UnorderedList pl={5}>
-                  <ListItem>Make sure to save your letter so you can come back to it later if needed</ListItem>
-                    <ListItem>Make sure to sign your name!</ListItem>
+                    <ListItem>Please share a heartfelt about Danielle's presence in your life</ListItem>
+                  <ListItem>Save your letter if you want to come back to it later</ListItem>
                   </UnorderedList>
 
                 </OrderedList>

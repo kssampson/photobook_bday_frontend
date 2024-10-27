@@ -8,13 +8,21 @@ import { useNavigate } from "react-router-dom";
 
 const MoreInfoModal = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleInstaClick = () => {
+
+  }
+
+  const handleFacebookClick = () => {
+
+  }
 
   return (
     <>
       <Button variant="outline" colorScheme="blue" onClick={onOpen}>
-        I need more info first
+        More info / other ways to submit
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
@@ -48,17 +56,25 @@ const MoreInfoModal = () => {
                     </HStack>
                   </HStack>
                   <UnorderedList pl={5}>
-                    <ListItem>Upload or take photo(s)</ListItem>
-                    <ListItem>Write letter in editor or upload</ListItem>
+                    <ListItem>Upload or take photo</ListItem>
+                    <ListItem>Write letter in editor</ListItem>
                     <ListItem>Choice to make submission visible to others</ListItem>
                     <ListItem>See the digital photobook!</ListItem>
                   </UnorderedList>
-                  <ListItem>Submit via social media groups:</ListItem>
+                  <ListItem>Or, click to submit via social media groups:</ListItem>
                   <HStack fontSize={"xx-large"}>
-                    <Box>
-                      <FaFacebookSquare />
+                    <Box
+                      _hover={{ cursor: "pointer", transform: "scale(1.3)" }}
+                      transition="transform 0.2s ease-in-out"
+                      onClick={handleFacebookClick}>
+                      <FaFacebookSquare/>
                     </Box>
+                    <Box
+                    _hover={{ cursor: "pointer", transform: "scale(1.3)" }}
+                    transition="transform 0.2s ease-in-out"
+                    onClick={handleInstaClick}>
                       <FaInstagram />
+                    </Box>
                     <Box className="arrow-icon" pt={2}>
                       <CgArrowLeft />
                     </Box>
