@@ -128,7 +128,6 @@ const LetterAndPhoto = () => {
   }
 
   const handleDeletePhoto = async () => {
-    console.log('clicked!')
     const token = localStorage.getItem('token');
     if (token) {
       try {
