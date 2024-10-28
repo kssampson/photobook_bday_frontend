@@ -188,9 +188,11 @@ const LetterAndPhoto = () => {
                     files={files}
                     setFiles={setFiles}
                   />
-                  <Box py={8}>
-                    <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo</Button>
-                  </Box>
+                  {files.length > 0 && (
+                    <Box py={8}>
+                      <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo</Button>
+                    </Box>
+                  )}
                 </VStack>
                 )}
                 {photos && (
