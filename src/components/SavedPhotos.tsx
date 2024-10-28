@@ -3,10 +3,10 @@ import { Box, IconButton } from "@chakra-ui/react";
 
 type Props = {
   photos: { url1: string};
-  deletePhoto: (photo: string) => void
+  handleDeletePhoto: () => Promise<void>
 };
 
-const SavedPhotos = ({ photos, deletePhoto }: Props) => {
+const SavedPhotos = ({ photos, handleDeletePhoto }: Props) => {
 
   return (
     <Box
@@ -29,7 +29,7 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
             cursor="default"
             alt="Saved Photo 1"
           />
-          {/* <IconButton
+          <IconButton
               aria-label="Remove file"
               icon={<CloseIcon />}
               position="absolute"
@@ -37,8 +37,8 @@ const SavedPhotos = ({ photos, deletePhoto }: Props) => {
               right="1"
               size="xs"
               colorScheme="red"
-              // onClick={() => removeFile(file)}
-            /> */}
+              onClick={handleDeletePhoto}
+            />
           </Box>
         )}
       </Box>

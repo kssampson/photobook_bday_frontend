@@ -3,15 +3,15 @@ import Letter from '../components/Letter';
 import { Box, Button, Card, CardBody, CardFooter, Checkbox, FormControl, FormHelperText, Heading, Stack, Text, VStack, useToast } from '@chakra-ui/react';
 import UploadFile from '../components/UploadFile';
 import { useLoaderData } from 'react-router-dom';
-import InstructionsModal from '../components/InstructionsModal';
+// import InstructionsModal from '../components/InstructionsModal';
 import saveLetter from '../utils/saveLetter';
 import getLetter from '../utils/getLetter';
 import Quill from 'quill';
 import savePhoto from '../utils/savePhoto';
 import getPhotos from '../utils/getPhotos';
 import SavedPhotos from '../components/SavedPhotos';
-import SavePhotoModal from '../components/SavePhotoModal';
 import RelationRadio from '../components/RelationRadio';
+import deletePhoto from '../utils/deletePhoto';
 
 export type Data = {
   id: number;
@@ -44,6 +44,7 @@ const LetterAndPhoto = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await saveLetter(userData.id, token, letterContent, deltaContent);
+      setReadOnly(!readOnly)
       toast({
         title: "Succes",
         position: "top-right",
@@ -64,10 +65,6 @@ const LetterAndPhoto = () => {
     }
   };
 
-  const triggerSavePhotoModal = async () => {
-    <SavePhotoModal />
-  }
-
   const handlePhotoSave = async () => {
     const token = localStorage.getItem('token');
     const formData = new FormData();
@@ -76,13 +73,14 @@ const LetterAndPhoto = () => {
 
     //formData only accepts string, so append the id as a str for querying the db
     formData.append('id', userDataIdStr);
-
     files.forEach((file) => {
       formData.append('files', file);
     });
 
     try {
       const response = await savePhoto(formData, token);
+      const newPhoto = {url1: response.url1 };
+      setPhotos(newPhoto);
       setFiles([]);
       toast({
         title: 'Success',
@@ -129,7 +127,36 @@ const LetterAndPhoto = () => {
     }
   }
 
-  const deletePhoto = (photos: string) => {
+  const handleDeletePhoto = async () => {
+    console.log('clicked!')
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await deletePhoto(token);
+        if (response.success) {
+          setPhotos(null);
+          toast({
+            title: 'Success',
+            position: "top-right",
+            description: 'Photo deleted successfully',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      } catch (error: any) {
+        console.error('Error deleting photo:', error);
+        toast({
+          title: 'Error',
+          position: "top-right",
+          description: `${error.message}`,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+
+    }
   }
 
   useEffect(() => {
@@ -151,10 +178,10 @@ const LetterAndPhoto = () => {
             <CardBody>
               <Stack>
                 <Heading size="lg">Hi {userData.username}!</Heading>
-                <Box>
+                {/* <Box>
                   <Text my={4}>How do you know Danielle?</Text>
                   <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
-                </Box>
+                </Box> */}
                 <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo:' : 'Select a photo'}</Heading>
                 {!photos && (
                 <VStack>
@@ -163,13 +190,13 @@ const LetterAndPhoto = () => {
                     setFiles={setFiles}
                   />
                   <Box py={8}>
-                    <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo(s)</Button>
+                    <Button variant="solid" colorScheme="blue" size={"md"} onClick={handlePhotoSave}>Save photo</Button>
                   </Box>
                 </VStack>
                 )}
                 {photos && (
                   <VStack>
-                    <SavedPhotos photos={photos} deletePhoto={deletePhoto}/>
+                    <SavedPhotos photos={photos} handleDeletePhoto={handleDeletePhoto}/>
                   </VStack>
                 )}
               </Stack>
@@ -205,7 +232,7 @@ const LetterAndPhoto = () => {
               )}
           </Card>
         </VStack>
-        <InstructionsModal />
+        {/* <InstructionsModal /> */}
     </Box>
   )
 };
