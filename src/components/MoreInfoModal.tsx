@@ -3,20 +3,18 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { CgArrowLeft } from "react-icons/cg";
 import { CheckIcon } from '@chakra-ui/icons';
-import { useNavigate } from "react-router-dom";
 
 
 const MoreInfoModal = () => {
 
-  // const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleInstaClick = () => {
-
+    window.location.href = 'https://www.instagram.com/danielles_40th_birthday?igsh=YmVjMm04YmF4dzNu&utm_source=qr';
   }
 
   const handleFacebookClick = () => {
-
+    window.location.href = "https://www.facebook.com/daniellesbirthday/"
   }
 
   return (
