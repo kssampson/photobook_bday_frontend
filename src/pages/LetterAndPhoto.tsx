@@ -155,7 +155,7 @@ const LetterAndPhoto = () => {
                   <Text my={4}>How do you know Danielle?</Text>
                   <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
                 </Box>
-                <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo(s):' : 'Select up to 2 photos'}</Heading>
+                <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo:' : 'Select a photo'}</Heading>
                 {!photos && (
                 <VStack>
                   <UploadFile

@@ -17,7 +17,7 @@ const UploadFile = ({ files, setFiles }: Props) => {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
-        const isValid = img.width >= 1500 && img.height >= 1500;
+        const isValid = img.width >= 500 && img.height >= 500;
         resolve(isValid);
       };
       img.onerror = () => {
@@ -100,7 +100,7 @@ const UploadFile = ({ files, setFiles }: Props) => {
       if (!isValidDimensions) {
         toast({
           title: "Invalid Image Dimensions",
-          description: "Images must be at least 3000x3000 pixels for print quality.",
+          description: "Images must be at least 500x500 pixels for print quality.",
           status: "warning",
           duration: 3000,
           isClosable: true,
