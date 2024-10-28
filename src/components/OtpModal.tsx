@@ -82,11 +82,11 @@ const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => 
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Enter OTP</ModalHeader>
+        <ModalHeader>Check Your Email</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl isInvalid={isErrorOtp} isRequired>
-            <FormLabel>One-Time Password:</FormLabel>
+            <FormLabel>One-Time Password from email:</FormLabel>
             <Input type="text" value={otp} onChange={onChangeOtp} />
             {isErrorOtp && <FormErrorMessage>OTP must be 6 characters</FormErrorMessage>}
           </FormControl>

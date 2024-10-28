@@ -1,9 +1,10 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text, CardBody, Card } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text, CardBody, Card, Center } from "@chakra-ui/react";
 import { validateInputs } from "../utils/validateInputs";
 import createUserSubmit from "../utils/createUserSubmit";
 import { useEffect, useState } from "react";
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { useNavigate } from "react-router-dom";
+import { ArrowLeftIcon } from "@chakra-ui/icons";
 
 
 const SignUp = () => {
@@ -186,10 +187,13 @@ const SignUp = () => {
                 <Button
                 colorScheme='blue'
                 onClick={onSubmit}
-                >Submit
+                >Create Account
                 </Button>
+                <Box textAlign={"center"}>
+                  <Text>or</Text>
+                </Box>
                 <Button onClick={() => navigate("/landing/login")}>
-                  Already have an accout?
+                log in
                 </Button>
               </Stack>
             </Box>

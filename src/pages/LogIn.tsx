@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure, CardBody, Card } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure, CardBody, Card, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import login from "../utils/login";
@@ -124,10 +124,13 @@ const LogIn = () => {
                 </FormControl>
 
                 <Button colorScheme="blue" onClick={onSubmit}>
-                  Submit
+                  Log in
                 </Button>
+                <Box textAlign={"center"}>
+                  <Text>or</Text>
+                </Box>
                 <Button onClick={() => navigate("/landing/signup")}>
-                  Back to sign-up
+                  sign-up
                 </Button>
               </Stack>
             </Box>

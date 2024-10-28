@@ -20,7 +20,7 @@ const MoreInfoModal = () => {
   return (
     <>
       <Button variant="outline" colorScheme="blue" onClick={onOpen}>
-        More info / other ways to submit
+        More info
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
@@ -56,7 +56,6 @@ const MoreInfoModal = () => {
                   <UnorderedList pl={5}>
                     <ListItem>Upload or take photo</ListItem>
                     <ListItem>Write letter in editor</ListItem>
-                    <ListItem>Choice to make submission visible to others</ListItem>
                     <ListItem>See the digital photobook!</ListItem>
                   </UnorderedList>
                   <ListItem>Or, click to submit via social media groups:</ListItem>
