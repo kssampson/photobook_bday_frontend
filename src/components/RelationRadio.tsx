@@ -13,7 +13,7 @@ const RelationRadio = ( {radioValue, setRadioValue}: Props ) => {
 
   return (
     <RadioGroup value={radioValue} onChange={handleRadioChange}>
-      <HStack gap="6">
+      <HStack gap="3">
         <Radio value="family">Family</Radio>
         <Radio value="friends">Friends</Radio>
         <Radio value="music">Music</Radio>

@@ -154,7 +154,6 @@ const SignUp = () => {
       alignItems={"center"}
       minHeight={"100%"}
       h={"100vh"}
-      padding={{base: 4, md: 8}}
     >
       <VStack >
         <Card>
@@ -162,7 +161,7 @@ const SignUp = () => {
             <Heading textAlign={"center"} mb={6}>Create Account</Heading>
             <Box as="form" onSubmit={(e: any) => { e.preventDefault(); onSubmit(); }} maxWidth={"100%"} width={"100%"}>
               <Stack spacing={3}>
-                <Box>
+                {/* <Box> */}
                   <FormControl isInvalid={isErrorUsername} isRequired>
                     <FormLabel>Username:</FormLabel>
                     <Input type='text' placeholder="'Dolly', 'Willie', 'Patsy', etc." _placeholder={{ opacity: 0.6 }} value={username ? username : ""} onChange={onChangeusername} />
@@ -170,8 +169,8 @@ const SignUp = () => {
                       <FormErrorMessage>Username is required.</FormErrorMessage>
                     )}
                   </FormControl>
-                </Box>
-                <Box>
+                {/* </Box> */}
+                {/* <Box> */}
                   <FormControl isInvalid={isErrorEmail} isRequired>
                     <FormLabel>Email:</FormLabel>
                     <Input type='email' value={email} onChange={onChangeEmail} />
@@ -179,7 +178,7 @@ const SignUp = () => {
                       <FormErrorMessage>Email is required.</FormErrorMessage>
                     )}
                   </FormControl>
-                </Box>
+                {/* </Box> */}
                 <Box>
                   <FormControl isInvalid={isErrorPassword} isRequired>
                     <FormLabel>Password:</FormLabel>
@@ -212,12 +211,12 @@ const SignUp = () => {
                     )}
                   </FormControl>
                 </Box>
-                <Box mt={4} mb={8}>
+                {/* <Box mt={4} mb={4}> */}
                   <FormControl>
                     <FormLabel mb={4}>How do you know Danielle?</FormLabel>
                     <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
                   </FormControl>
-                </Box>
+                {/* </Box> */}
                 <Button
                 colorScheme='blue'
                 type="submit"
