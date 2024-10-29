@@ -211,12 +211,12 @@ const SignUp = () => {
                     )}
                   </FormControl>
                 </Box>
-                {/* <Box mt={4} mb={4}> */}
+                <Box mt={2} mb={4}>
                   <FormControl>
                     <FormLabel mb={4}>How do you know Danielle?</FormLabel>
                     <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
                   </FormControl>
-                {/* </Box> */}
+                </Box>
                 <Button
                 colorScheme='blue'
                 type="submit"
