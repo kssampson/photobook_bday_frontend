@@ -27,7 +27,7 @@ const LetterAndPhoto = () => {
 
   const userData = useLoaderData() as Data;
 
-  const [radioValue, setRadioValue] = useState("other");
+  // const [radioValue, setRadioValue] = useState("other");
   const [files, setFiles] = useState<File[]>([]);
   const [photos, setPhotos] = useState<any>(null);
   const [letterContent, setLetterContent] = useState<string>('');

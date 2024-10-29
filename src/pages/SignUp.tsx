@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import RelationRadio from "../components/RelationRadio";
 
 
 const SignUp = () => {
@@ -17,6 +18,7 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
+  const [radioValue, setRadioValue] = useState("other");
 
   const [usernameSubmitted, setUsernameSubmitted] = useState<boolean>(false);
   const [emailSubmitted, setEmailSubmitted] = useState<boolean>(false);
@@ -73,6 +75,7 @@ const SignUp = () => {
       }
 
       const response = await createUserSubmit({
+        relation: radioValue,
         username: username,
         email: email,
         password: password,
@@ -209,9 +212,14 @@ const SignUp = () => {
                     )}
                   </FormControl>
                 </Box>
+                <Box mt={4} mb={8}>
+                  <FormControl>
+                    <FormLabel mb={4}>How do you know Danielle?</FormLabel>
+                    <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
+                  </FormControl>
+                </Box>
                 <Button
                 colorScheme='blue'
-                // onClick={onSubmit}
                 type="submit"
                 >Create Account
                 </Button>
@@ -223,7 +231,6 @@ const SignUp = () => {
                 </Button>
               </Stack>
             </Box>
-
           </CardBody>
         </Card>
       </VStack>
