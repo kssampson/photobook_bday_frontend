@@ -1,10 +1,11 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure, CardBody, Card, Text } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, VStack, useToast, Stack, useDisclosure, CardBody, Card, Text, IconButton } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import login from "../utils/login";
 import OtpModal from "../components/OtpModal";
 import { validateInputs } from "../utils/validateInputs";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 const LogIn = () => {
 
@@ -20,6 +21,8 @@ const LogIn = () => {
   const [usernameSubmitted, setUsernameSubmitted] = useState<boolean>(false);
   const [passwordSubmitted, setPasswordSubmitted] = useState<boolean>(false);
 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const isErrorUsername = !validateInputs.isValidUsername(username) && usernameSubmitted;
   const isErrorPassword = !validateInputs.isValidPassword(password) && passwordSubmitted;
 
@@ -31,6 +34,10 @@ const LogIn = () => {
   const onChangePassword = (e: any) => {
     setPassword(e.target.value);
     setPasswordSubmitted(false);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(prev => !prev);
   };
 
   const resetFormStates = () => {
@@ -109,21 +116,28 @@ const LogIn = () => {
         <Card>
           <CardBody>
             <Heading textAlign={"center"} mb={6}>Log-In</Heading>
-            <Box maxWidth={"100%"} width={"100%"}>
+            <Box as="form" onSubmit={(e: any) => { e.preventDefault(); onSubmit(); }} maxWidth={"100%"} width={"100%"}>
               <Stack spacing={3}>
                 <FormControl isInvalid={isErrorUsername} isRequired>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Username:</FormLabel>
                   <Input value={username} onChange={onChangeName} />
                   {isErrorUsername && <FormErrorMessage>Username is invalid</FormErrorMessage>}
                 </FormControl>
 
                 <FormControl isInvalid={isErrorPassword} isRequired>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" value={password} onChange={onChangePassword} />
+                  <FormLabel>Password:</FormLabel>
+                  <Stack direction="row" alignItems="center">
+                    <Input type={showPassword ? 'text' : 'password'} value={password} onChange={onChangePassword} />
+                    <IconButton
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                        onClick={toggleShowPassword}
+                      />
+                  </Stack>
                   {isErrorPassword && <FormErrorMessage>Password is required</FormErrorMessage>}
                 </FormControl>
 
-                <Button colorScheme="blue" onClick={onSubmit}>
+                <Button colorScheme="blue" type="submit">
                   Log in
                 </Button>
                 <Box textAlign={"center"}>

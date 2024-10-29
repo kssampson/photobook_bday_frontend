@@ -1,10 +1,10 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text, CardBody, Card, Center } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Stack, VStack, useToast, Text, CardBody, Card, IconButton } from "@chakra-ui/react";
 import { validateInputs } from "../utils/validateInputs";
 import createUserSubmit from "../utils/createUserSubmit";
 import { useEffect, useState } from "react";
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { useNavigate } from "react-router-dom";
-import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 
 const SignUp = () => {
@@ -22,6 +22,9 @@ const SignUp = () => {
   const [emailSubmitted, setEmailSubmitted] = useState<boolean>(false);
   const [passwordSubmitted, setPasswordSubmitted] = useState<boolean>(false);
   const [secondPasswordSubmitted, setSecondPasswordSubmitted] = useState<boolean>(false);
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showSecondPassword, setShowSecondPassword] = useState<boolean>(false);
 
   const toast = useToast();
 
@@ -49,6 +52,14 @@ const SignUp = () => {
     setSecondPasswordSubmitted(false);
     setSecondPassword(e.target.value);
   }
+
+  const toggleShowPassword = () => {
+    setShowPassword(prev => !prev);
+  };
+
+  const toggleShowSecondPassword = () => {
+    setShowSecondPassword(prev => !prev);
+  };
 
   const onSubmit = async () => {
     try {
@@ -146,14 +157,14 @@ const SignUp = () => {
         <Card>
           <CardBody>
             <Heading textAlign={"center"} mb={6}>Create Account</Heading>
-            <Box maxWidth={"100%"} width={"100%"}>
+            <Box as="form" onSubmit={(e: any) => { e.preventDefault(); onSubmit(); }} maxWidth={"100%"} width={"100%"}>
               <Stack spacing={3}>
                 <Box>
                   <FormControl isInvalid={isErrorUsername} isRequired>
                     <FormLabel>Username:</FormLabel>
-                    <Input type='text' value={username ? username : ""} onChange={onChangeusername} />
+                    <Input type='text' placeholder="'Dolly', 'Willie', 'Patsy', etc." _placeholder={{ opacity: 0.6 }} value={username ? username : ""} onChange={onChangeusername} />
                     {!isErrorUsername ? null : (
-                      <FormErrorMessage>username is required.</FormErrorMessage>
+                      <FormErrorMessage>Username is required.</FormErrorMessage>
                     )}
                   </FormControl>
                 </Box>
@@ -169,16 +180,30 @@ const SignUp = () => {
                 <Box>
                   <FormControl isInvalid={isErrorPassword} isRequired>
                     <FormLabel>Password:</FormLabel>
-                    <Input type='password' value={password} onChange={onChangePassword} />
+                    <Stack direction="row" alignItems="center">
+                      <Input type={showPassword ? 'text' : 'password'} placeholder="Minimum 8 characters" _placeholder={{ opacity: 0.6 }} value={password} onChange={onChangePassword} />
+                      <IconButton
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                        onClick={toggleShowPassword}
+                      />
+                    </Stack>
                     {!isErrorPassword ? null : (
-                      <FormErrorMessage>Password is required.</FormErrorMessage>
+                      <FormErrorMessage>{password.length < 8 && 'Must be at least 8 characters'}</FormErrorMessage>
                     )}
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl isInvalid={isErrorSecondPassword} isRequired>
                     <FormLabel>Confirm Password:</FormLabel>
-                    <Input type='password' value={secondPassword} onChange={onChangeSecondPassword} />
+                    <Stack direction="row" alignItems="center">
+                      <Input type={showSecondPassword ? 'text' : 'password'} value={secondPassword} onChange={onChangeSecondPassword} />
+                      <IconButton
+                        aria-label={showSecondPassword ? "Hide password" : "Show password"}
+                        icon={showSecondPassword ? <ViewOffIcon /> : <ViewIcon />}
+                        onClick={toggleShowSecondPassword}
+                      />
+                    </Stack>
                     {!isErrorSecondPassword ? null : (
                       <FormErrorMessage>Passwords Do Not Match.</FormErrorMessage>
                     )}
@@ -186,7 +211,8 @@ const SignUp = () => {
                 </Box>
                 <Button
                 colorScheme='blue'
-                onClick={onSubmit}
+                // onClick={onSubmit}
+                type="submit"
                 >Create Account
                 </Button>
                 <Box textAlign={"center"}>

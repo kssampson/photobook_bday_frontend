@@ -86,7 +86,7 @@ const OtpModal = ({ visitorId, username, password, isOpen, onClose }: Props) => 
         <ModalCloseButton />
         <ModalBody>
           <FormControl isInvalid={isErrorOtp} isRequired>
-            <FormLabel>One-Time Password from email:</FormLabel>
+            <FormLabel>6 digit passcode from email:</FormLabel>
             <Input type="text" value={otp} onChange={onChangeOtp} />
             {isErrorOtp && <FormErrorMessage>OTP must be 6 characters</FormErrorMessage>}
           </FormControl>
