@@ -36,11 +36,9 @@ const HomeLanding = () => {
                 </HStack>
               </HStack>
               <UnorderedList pl={5}>
-                <ListItem>Users have until Nov 10th (day before Danielle's b-day) to submit contributions</ListItem>
-                <ListItem>On Nov 11th the digital version will be viewable by Danielle and all who contributed via this site!</ListItem>
-                <ListItem>The physical book is set to be ordered during her birthday week to allow for as many contributions as possible</ListItem>
+                <ListItem>We've opened up the timeline to allow for contributions throughout the year, so if you've submitted one already, thank you!</ListItem>
+                <ListItem>Digital contributions will become availble the week of November 11th</ListItem>
               </UnorderedList>
-
             </OrderedList>
           </Box>
         </VStack>
