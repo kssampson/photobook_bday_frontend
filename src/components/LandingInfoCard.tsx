@@ -25,12 +25,12 @@ const LandingInfoCard = ({ danielleImage, setDanielleImage }: Props) => {
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">Danielle's 40th Birthday Surprise</Heading>
+          <Heading size="md">Danielle's Birthday</Heading>
           <Text>
-            Danielle is turning 40, and we want to celebrate her in a meaningful way! We’re creating a special gift—a beautiful memory book filled with letters and photos from friends and family.
+            Join us in celebrating her milestone birthday in a meaningful way this year! We’re creating a special gift—a beautiful memory book filled with letters and photos from friends and family.
           </Text>
           <Text>
-            To make this possible, we need contributions from all of Danielle’s loved ones. Join us in making this milestone truly memorable!
+            This site is open to collect your heartfelt contributions throughout the year, so submit anytime! Join us in making this milestone truly memorable!
           </Text>
         </Stack>
       </CardBody>

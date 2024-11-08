@@ -31,10 +31,10 @@ const MoreInfoModal = () => {
           <ModalBody>
             <VStack spacing={6} align="left">
               <Text fontSize="md">
-                We’re creating a high-quality printed memory book for Danielle. Friends and family can upload letters and photos. As Danielle goes through the book, she’ll see the photos on the left and the heartfelt notes, letters, or messages on the right.
+                We’re creating a high-quality printed memory book for Danielle. Friends and family can upload letters and a photo. As Danielle goes through the book, she’ll see the photos on the left and the heartfelt notes, letters, or messages on the right.
               </Text>
               <Text fontSize="md">
-                Users who create an account to share with Danielle will be able to view the digital photobook available on this site on her birthday on November 11th!
+                Users who create an account to share with Danielle will be able to view the digital photobook as memories become available!
               </Text>
 
               <Box>
