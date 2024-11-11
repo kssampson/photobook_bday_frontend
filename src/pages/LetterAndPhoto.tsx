@@ -177,10 +177,6 @@ const LetterAndPhoto = () => {
             <CardBody>
               <Stack>
                 <Heading size="lg">Hi {userData.username}!</Heading>
-                {/* <Box>
-                  <Text my={4}>How do you know Danielle?</Text>
-                  <RelationRadio radioValue={radioValue} setRadioValue={setRadioValue}/>
-                </Box> */}
                 <Heading size="sm" pt={4}>{photos ? 'Your Saved Photo:' : 'Select a photo'}</Heading>
                 {!photos && (
                 <VStack>

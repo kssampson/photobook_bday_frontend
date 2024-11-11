@@ -14,7 +14,12 @@ function App() {
   return (
     <>
     <ChakraProvider>
-      <Box position="relative" width="100vw" height={"100%"} overflow="hidden">
+      <Box
+        position="relative"
+        width="100%"
+        minHeight={"100%"}
+        overflow="hidden"
+      >
         <Image
           opacity={"0.8"}
           src={backgroundImage}
@@ -25,7 +30,7 @@ function App() {
           objectFit="cover"
           zIndex={-1}
         />
-        <Box zIndex={1} height="100%" className='booger'>
+        <Box zIndex={1} minHeight={"100vh"} overflowY={"auto"}>
           <Outlet />
         </Box>
         </Box>

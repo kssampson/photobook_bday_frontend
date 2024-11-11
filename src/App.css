@@ -6,12 +6,15 @@
 
 .ql-container {
   height: 48.3vh;
+  max-width: 100%;
+  width: 100%;
 }
 
 .ql-editor {
   min-height: 100px;
   max-height: 50vh;
   min-width: 80vw;
+  /* width: 100%; */
 }
 
 .arrow-icon {

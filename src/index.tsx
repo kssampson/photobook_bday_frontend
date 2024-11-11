@@ -13,6 +13,7 @@ import LetterAndPhoto from './pages/LetterAndPhoto';
 import Home from './pages/Home';
 import HomeLanding from './pages/HomeLanding';
 import LandingInfo from './pages/LandingInfo';
+import Submissions from './pages/Submissions';
 
 const { toast } = createStandaloneToast();
 
@@ -79,6 +80,11 @@ const router = createBrowserRouter([
           {
             path: 'submit',
             element: <LetterAndPhoto/>,
+            loader: checkAuthLoader
+          },
+          {
+            path: 'submissions',
+            element: <Submissions />,
             loader: checkAuthLoader
           },
         ]
