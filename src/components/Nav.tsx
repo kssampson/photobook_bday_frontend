@@ -35,9 +35,9 @@ const Nav = () => {
       <Link as={RouterLink} to="/home/submit" {...buttonStyles} onClick={toggleMenu}>
         Letter/Photo
       </Link>
-      <Link as={RouterLink} to="/home/submissions" {...buttonStyles} onClick={toggleMenu}>
+      {/* <Link as={RouterLink} to="/home/submissions" {...buttonStyles} onClick={toggleMenu}>
         View Submissions
-      </Link>
+      </Link> */}
       {isAuthenticated ? (
         <Button variant="ghost" onClick={handleLogout} {...buttonStyles} color="red.600">
           Logout
@@ -81,9 +81,9 @@ const Nav = () => {
               <MenuItem onClick={toggleMenu} as={RouterLink} to="/home/submit">
                 Letter/Photo
               </MenuItem>
-              <MenuItem onClick={toggleMenu} as={RouterLink} to="/home/submissions">
+              {/* <MenuItem onClick={toggleMenu} as={RouterLink} to="/home/submissions">
                 View Submissions
-              </MenuItem>
+              </MenuItem> */}
               {isAuthenticated ? (
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               ) : (
