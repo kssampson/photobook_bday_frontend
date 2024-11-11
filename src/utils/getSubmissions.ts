@@ -9,7 +9,11 @@ const getSubmissions = async (token: string, page: number, limit: number) => {
         limit
       }
     })
-    return response.data;
+    const filteredSubmissions = response.data.filter((submission: any) => submission.letterContent !== null);
+    return {
+      ...response.data,
+      submissions: filteredSubmissions
+    }
   } catch (error: any) {
     console.error('an error occurred: ', error.response ? error.response.data : error.message)
   }

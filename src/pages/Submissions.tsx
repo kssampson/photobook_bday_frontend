@@ -20,28 +20,6 @@ const Submissions = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
-//   const sampleUsers = [
-//     {
-//     username: "John Doe",
-//     photoUrl: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-//     letterContent: {
-//       ops: [
-//         { attributes: { color: "#454545" }, insert: "I’ll never forget seeing you for the first time on stage..." },
-//         { insert: "\n" },
-//         { attributes: { color: "#454545" }, insert: "And by the way…40 ain’t no big thang 😉" },
-//         { insert: "\n\n" },
-//         { attributes: { color: "#454545" }, insert: "Love - Caroline ❣️" },
-//         { insert: "\n\n" }
-//       ]
-//     }
-//   },
-//   {
-//     username: "Jane Smith",
-//     photoUrl: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1773&q=80",
-//     letterContent: { ops: [{ insert: "Jane's letter content goes here." }] },
-//   },
-// ];
-
 const loadSubmissions = useCallback(async () => {
   if (loading || !hasMore) return;
   setLoading(true);
